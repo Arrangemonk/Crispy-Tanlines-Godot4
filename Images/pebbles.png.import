@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://rxxht60b0wnm"
 path.s3tc="res://.godot/imported/pebbles.png-18d6fa73fc85e2d1871fb4e7bc72ea49.s3tc.ctex"
+path.etc2="res://.godot/imported/pebbles.png-18d6fa73fc85e2d1871fb4e7bc72ea49.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Images/pebbles.png"
-dest_files=["res://.godot/imported/pebbles.png-18d6fa73fc85e2d1871fb4e7bc72ea49.s3tc.ctex"]
+dest_files=["res://.godot/imported/pebbles.png-18d6fa73fc85e2d1871fb4e7bc72ea49.s3tc.ctex", "res://.godot/imported/pebbles.png-18d6fa73fc85e2d1871fb4e7bc72ea49.etc2.ctex"]
 
 [params]
 

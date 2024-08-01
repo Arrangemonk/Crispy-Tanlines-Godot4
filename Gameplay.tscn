@@ -1,18 +1,41 @@
-[gd_scene load_steps=33 format=3 uid="uid://bobbll0uufawv"]
+[gd_scene load_steps=56 format=3 uid="uid://bobbll0uufawv"]
 
 [ext_resource type="Script" path="res://Code/Umbrella.gd" id="1_f4agu"]
+[ext_resource type="Script" path="res://Code/Gameplay.gd" id="1_txcux"]
 [ext_resource type="Texture2D" uid="uid://c5umxln6j3p64" path="res://Images/Umbrella.png" id="1_we2rj"]
 [ext_resource type="ArrayMesh" uid="uid://duviehucmxpl3" path="res://models/umbrella2.obj" id="2_01y20"]
+[ext_resource type="AudioStream" uid="uid://bo8g1h31ywy0j" path="res://Audio/beach_ambience.ogg" id="2_66tj3"]
+[ext_resource type="Texture2D" uid="uid://c3nw2cmjt0u2b" path="res://Images/lotion.png" id="2_ixhib"]
 [ext_resource type="Texture2D" uid="uid://7s0xj5jhrfwb" path="res://Images/beach.png" id="3_5h228"]
-[ext_resource type="Texture2D" uid="uid://c4k08cdtim0aw" path="res://Images/Sand 2.jpg" id="4_q0txy"]
+[ext_resource type="Script" path="res://Lotion.gd" id="3_gh7kn"]
+[ext_resource type="AudioStream" uid="uid://dan13pygroorl" path="res://Audio/grab.ogg" id="3_tvqv6"]
+[ext_resource type="Script" path="res://Code/Armour.gd" id="4_donxf"]
+[ext_resource type="AudioStream" uid="uid://crttm75scqv80" path="res://Audio/boing.ogg" id="4_gg2o6"]
+[ext_resource type="Script" path="res://Code/Health.gd" id="4_xapf7"]
 [ext_resource type="Texture2D" uid="uid://b1lqya7w55x0k" path="res://models/shoreline_foam.png" id="5_02jet"]
 [ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="5_jndn2"]
+[ext_resource type="Texture2D" uid="uid://d1awe5t4ckbdw" path="res://Images/beachbitch.png" id="5_t7l6t"]
 [ext_resource type="Texture2D" uid="uid://rxxht60b0wnm" path="res://Images/pebbles.png" id="6_5yvy0"]
+[ext_resource type="ArrayMesh" uid="uid://bte0hmv1rtrvg" path="res://models/bitchMesh.obj" id="6_tsyq6"]
 [ext_resource type="Script" path="res://Code/Water.gd" id="6_vsrr6"]
+[ext_resource type="AudioStream" uid="uid://b7u4kk1y31by7" path="res://Audio/630484__jimbo555__bottle-squirt.wav" id="7_8bytu"]
 [ext_resource type="Shader" path="res://Shaders/shadow.gdshader" id="9_6ms0j"]
+[ext_resource type="Texture2D" uid="uid://cg6s76w53y4r7" path="res://Images/Ground033_1K-JPG_Color.jpg" id="10_xcd7q"]
 [ext_resource type="Texture2D" uid="uid://d0y1846phdeie" path="res://Images/Menu_Background.jpg" id="11_o2tq4"]
 [ext_resource type="Texture2D" uid="uid://bltcr01l2obr0" path="res://Images/Title.png" id="11_swjqg"]
 [ext_resource type="Texture2D" uid="uid://bwsrw0g74amdu" path="res://Images/Game Over.jpg" id="13_old4v"]
+[ext_resource type="Script" path="res://Code/Start.gd" id="13_yoy1o"]
+[ext_resource type="Script" path="res://Code/Credits.gd" id="19_gpge7"]
+[ext_resource type="AudioStream" uid="uid://ccahsdo6ja83y" path="res://Audio/bass loop.wav" id="19_ycrs3"]
+[ext_resource type="Script" path="res://Code/Exit.gd" id="20_y05f6"]
+[ext_resource type="Script" path="res://Code/Escape.gd" id="21_nvk1w"]
+[ext_resource type="Texture2D" uid="uid://cjsysy7xfe7ba" path="res://Images/youlose.png" id="29_jplnx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_begyy"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qt3c"]
+bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_idvov"]
 rough = true
@@ -28,11 +51,13 @@ size = Vector3(1.03, 0.2, 1.03)
 radius = 0.05
 height = 1.5
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_oq5kg"]
-size = Vector3(20, 10, 20)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4v3dm"]
+rough = true
+bounce = 0.04
+absorbent = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ixnme"]
-size = Vector2(20, 20)
+size = Vector2(30, 30)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6il7e"]
 noise_type = 0
@@ -52,7 +77,7 @@ detail_enabled = true
 detail_mask = SubResource("NoiseTexture2D_b1qao")
 detail_blend_mode = 1
 detail_uv_layer = 1
-detail_albedo = ExtResource("4_q0txy")
+detail_albedo = ExtResource("10_xcd7q")
 uv2_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68ad5"]
@@ -153,75 +178,154 @@ shadow_mesh = SubResource("ArrayMesh_16c7j")
 render_priority = 0
 shader = ExtResource("9_6ms0j")
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbu4f"]
+size = Vector3(0.7, 1.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u7r70"]
+size = Vector3(30, 0.5, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3m7oc"]
+transparency = 1
+albedo_texture = ExtResource("5_t7l6t")
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3wu5"]
+font_size = 21
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 14
+shadow_color = Color(0, 0, 0, 0.301961)
+shadow_offset = Vector2(3, 3)
+
+[node name="Crispy" type="Node3D"]
 
 [node name="Gameplay" type="Node3D" parent="."]
+process_mode = 1
 visible = false
+script = ExtResource("1_txcux")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Gameplay"]
+[node name="Lotion" type="Button" parent="Gameplay"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -179.0
+offset_right = 98.0
+offset_bottom = 221.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/outline_size = 0
+icon = ExtResource("2_ixhib")
+flat = true
+script = ExtResource("3_gh7kn")
+
+[node name="Health" type="ProgressBar" parent="Gameplay"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -566.0
+offset_right = -24.0
+offset_bottom = -266.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_begyy")
+value = 100.0
+fill_mode = 2
+show_percentage = false
+script = ExtResource("4_xapf7")
+
+[node name="Armour" type="ProgressBar" parent="Gameplay"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -566.0
+offset_right = -71.0
+offset_bottom = -266.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_4qt3c")
+value = 100.0
+fill_mode = 2
+show_percentage = false
+script = ExtResource("4_donxf")
+
+[node name="Ambientsound" type="AudioStreamPlayer3D" parent="Gameplay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.52724)
+stream = ExtResource("2_66tj3")
+autoplay = true
+
+[node name="Pickup" type="AudioStreamPlayer3D" parent="Gameplay"]
+stream = ExtResource("3_tvqv6")
+
+[node name="Drop" type="AudioStreamPlayer3D" parent="Gameplay"]
+stream = ExtResource("4_gg2o6")
+
+[node name="Squeeze" type="AudioStreamPlayer3D" parent="Gameplay"]
+stream = ExtResource("7_8bytu")
+
+[node name="Umbrella" type="RigidBody3D" parent="Gameplay"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92664, 1.12321, 0.216072)
 disable_mode = 2
 mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_idvov")
 center_of_mass_mode = 1
-center_of_mass = Vector3(0.1, 0.5, 0.1)
+center_of_mass = Vector3(0, 0.5, 0)
+can_sleep = false
+freeze_mode = 1
+continuous_cd = true
 script = ExtResource("1_f4agu")
 
-[node name="Umbrella2" type="MeshInstance3D" parent="Gameplay/RigidBody3D"]
+[node name="Umbrella2" type="MeshInstance3D" parent="Gameplay/Umbrella"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.07631, 0)
 material_override = SubResource("StandardMaterial3D_40jms")
 mesh = ExtResource("2_01y20")
 skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Gameplay/RigidBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Gameplay/Umbrella"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15372, 0)
 shape = SubResource("BoxShape3D_uxx22")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Gameplay/RigidBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Gameplay/Umbrella"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.000733018, 0.15372, 0.0022698)
 shape = SubResource("BoxShape3D_uxx22")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Umbrella"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.288826, 0)
 shape = SubResource("CapsuleShape3D_ghfpv")
 
-[node name="Area3D" type="Area3D" parent="Gameplay"]
-disable_mode = 2
-wind_force_magnitude = 10.0
-wind_source_path = NodePath("../Windsource")
+[node name="Windsource" type="Node3D" parent="Gameplay/Umbrella"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.46116, -1.12321, -0.216072)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Area3D"]
-shape = SubResource("BoxShape3D_oq5kg")
+[node name="Environment" type="StaticBody3D" parent="Gameplay"]
+input_ray_pickable = false
+physics_material_override = SubResource("PhysicsMaterial_4v3dm")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Gameplay"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/StaticBody3D"]
+[node name="Floor" type="MeshInstance3D" parent="Gameplay/Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00222468, 0.00602245, -0.009269)
 mesh = SubResource("PlaneMesh_ixnme")
-skeleton = NodePath("../../Area3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_m38l0")
 
-[node name="beachlounger" type="MeshInstance3D" parent="Gameplay/StaticBody3D"]
+[node name="beachlounger" type="MeshInstance3D" parent="Gameplay/Environment"]
 transform = Transform3D(0.15, 0, 0, 0, 0.11, -3.10862e-17, 0, 2.44249e-17, 0.14, 0.292622, -0.015, 0.514)
 mesh = SubResource("ArrayMesh_vufsp")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Environment"]
 shape = SubResource("ConvexPolygonShape3D_5uxip")
 
-[node name="Camera3D" type="Camera3D" parent="Gameplay"]
-transform = Transform3D(1, 0, 0, 0, 0.0871558, 0.996195, 0, -0.996195, 0.0871558, 0, 6.468, 0.68)
-far = 100.0
-
-[node name="Windsource" type="Node3D" parent="Gameplay"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3878, 0, 0)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Gameplay"]
-transform = Transform3D(-0.142629, -0.745859, 0.650654, 0, 0.657375, 0.753563, -0.989776, 0.10748, -0.0937607, 15.5776, 3.6347, -0.0544536)
-shadow_enabled = true
-
-[node name="Water" type="MeshInstance3D" parent="Gameplay"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 3, -0.041, 0.2, 2.029)
+[node name="Water" type="MeshInstance3D" parent="Gameplay/Environment"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 3, -0.041, 0.146866, 2.029)
 material_override = SubResource("ShaderMaterial_uq7yc")
 material_overlay = SubResource("ShaderMaterial_iim1p")
 cast_shadow = 0
@@ -230,8 +334,8 @@ mesh = SubResource("ArrayMesh_el6pr")
 skeleton = NodePath("")
 script = ExtResource("6_vsrr6")
 
-[node name="Water2" type="MeshInstance3D" parent="Gameplay"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 3, -0.041, 0.1, 2)
+[node name="Water2" type="MeshInstance3D" parent="Gameplay/Environment"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 3, -0.041, 0.046866, 2)
 material_override = SubResource("ShaderMaterial_f5ljk")
 material_overlay = SubResource("ShaderMaterial_iim1p")
 cast_shadow = 0
@@ -239,6 +343,43 @@ gi_mode = 0
 mesh = SubResource("ArrayMesh_el6pr")
 skeleton = NodePath("")
 script = ExtResource("6_vsrr6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Gameplay/Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.98281, -0.18462, 0, 0.18462, 0.98281, -0.115283, -0.26685, 0.45152)
+shape = SubResource("BoxShape3D_sbu4f")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Gameplay/Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.993923, 0.110081, 0, -0.110081, 0.993923, 0, -0.0531337, 3.37261)
+shape = SubResource("BoxShape3D_u7r70")
+
+[node name="Girl" type="MeshInstance3D" parent="Gameplay"]
+transform = Transform3D(0.841182, 0, 0, 0, 0.809792, -0.196243, 0, 0.201183, 0.789904, -0.112637, 0.443309, 0.61647)
+material_override = SubResource("StandardMaterial3D_3m7oc")
+mesh = ExtResource("6_tsyq6")
+skeleton = NodePath("../..")
+
+[node name="Sunlight" type="DirectionalLight3D" parent="Gameplay"]
+transform = Transform3D(-0.173648, -0.696364, 0.696364, 0, 0.707107, 0.707107, -0.984808, 0.122788, -0.122788, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.75
+directional_shadow_blend_splits = true
+sky_mode = 1
+
+[node name="Sunlight2" type="DirectionalLight3D" parent="Gameplay"]
+transform = Transform3D(0.173648, -0.696364, -0.696364, 0, 0.707107, -0.707107, 0.984808, 0.122788, 0.122788, 0, 0, 0)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+shadow_opacity = 0.75
+directional_shadow_blend_splits = true
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 0.0871558, 0.996195, 0, -0.996195, 0.0871558, 0, 6.468, 0.68)
+top_level = true
+far = 100.0
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
@@ -290,18 +431,27 @@ size_flags_vertical = 4
 
 [node name="Start" type="Button" parent="Menu/CenterContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Start
 "
+flat = true
+script = ExtResource("13_yoy1o")
 
 [node name="Credits" type="Button" parent="Menu/CenterContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Credits
 "
+flat = true
+script = ExtResource("19_gpge7")
 
 [node name="Exit" type="Button" parent="Menu/CenterContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Exit
 "
+flat = true
+script = ExtResource("20_y05f6")
 
 [node name="GameOver" type="Control" parent="."]
 visible = false
@@ -311,6 +461,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("21_nvk1w")
 
 [node name="TextureRect3" type="TextureRect" parent="GameOver"]
 layout_mode = 1
@@ -322,3 +473,115 @@ grow_vertical = 2
 texture = ExtResource("13_old4v")
 expand_mode = 3
 stretch_mode = 6
+
+[node name="you win" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "You Win!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="YouLose" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("21_nvk1w")
+
+[node name="TextureRect3" type="TextureRect" parent="YouLose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_old4v")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="TextureRect4" type="TextureRect" parent="YouLose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_jplnx")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="you lose" type="Label" parent="YouLose"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "You Lose!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Credits" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("21_nvk1w")
+
+[node name="TextureRect3" type="TextureRect" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_old4v")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Crispy Tanlines
+Background Art: 	MetaUchiha
+Code: 						Arrangemonk
+Sprite Art: 				Kurohna
+
+Used Assets:
+\"Sun lounger 3D\" -- https://skfb.ly/6ZqGL by rodestrela is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+\"ambience Beach Sea Outdoor Cala Xelin Ametlla de Mar 1 by bitlab_coop\" -- https://freesound.org/s/486862/ -- License: Creative Commons 0
+\"Bass loops 031 with drums long loop 120 bpm.wav by josefpres\" -- https://freesound.org/s/625083/ -- License: Creative Commons 0
+Bottle Squirt.wav by jimbo555 -- https://freesound.org/s/630484/ -- License: Creative Commons 0
+BOINGS_Jews Harp.wav by stevielematt -- https://freesound.org/s/538066/ -- License: Creative Commons 0
+Cloth Grab by alegemaate -- https://freesound.org/s/667271/ -- License: Creative Commons 0"
+label_settings = SubResource("LabelSettings_i3wu5")
+autowrap_mode = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_ycrs3")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Gameplay/Lotion" to="Gameplay/Lotion" method="_on_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Start" to="Gameplay/Umbrella" method="_reset"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Start" to="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Start" method="_on_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Credits" to="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Credits" method="_on_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Exit" to="Menu/CenterContainer/VBoxContainer/VBoxContainer2/Exit" method="_on_pressed"]

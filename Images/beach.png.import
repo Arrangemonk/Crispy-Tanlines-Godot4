@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://7s0xj5jhrfwb"
 path.s3tc="res://.godot/imported/beach.png-8caf50a786675f03162fc0a3e7736b53.s3tc.ctex"
+path.etc2="res://.godot/imported/beach.png-8caf50a786675f03162fc0a3e7736b53.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Images/beach.png"
-dest_files=["res://.godot/imported/beach.png-8caf50a786675f03162fc0a3e7736b53.s3tc.ctex"]
+dest_files=["res://.godot/imported/beach.png-8caf50a786675f03162fc0a3e7736b53.s3tc.ctex", "res://.godot/imported/beach.png-8caf50a786675f03162fc0a3e7736b53.etc2.ctex"]
 
 [params]
 

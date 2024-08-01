@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5umxln6j3p64"
 path.s3tc="res://.godot/imported/Umbrella.png-874b5781a82e727f379b84e66cb9b45c.s3tc.ctex"
+path.etc2="res://.godot/imported/Umbrella.png-874b5781a82e727f379b84e66cb9b45c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Images/Umbrella.png"
-dest_files=["res://.godot/imported/Umbrella.png-874b5781a82e727f379b84e66cb9b45c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Umbrella.png-874b5781a82e727f379b84e66cb9b45c.s3tc.ctex", "res://.godot/imported/Umbrella.png-874b5781a82e727f379b84e66cb9b45c.etc2.ctex"]
 
 [params]
 

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bte0hmv1rtrvg"
+path="res://.godot/imported/bitchMesh.obj-2ebb48f8158c6b8e32fb68627ead103b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bitchMesh.obj-2ebb48f8158c6b8e32fb68627ead103b.mesh"]
+
+source_file="res://models/bitchMesh.obj"
+dest_files=["res://.godot/imported/bitchMesh.obj-2ebb48f8158c6b8e32fb68627ead103b.mesh", "res://.godot/imported/bitchMesh.obj-2ebb48f8158c6b8e32fb68627ead103b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

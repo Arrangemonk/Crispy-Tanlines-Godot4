@@ -15,6 +15,12 @@ run/main_scene="res://Gameplay.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="CrispyTanlines2"
@@ -22,5 +28,6 @@ project/assembly_name="CrispyTanlines2"
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 scaling_3d/mode=1
 vrs/mode=2
